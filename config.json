@@ -1,0 +1,49 @@
+{
+  "user_url": "https://www.miyoushe.com/ys/accountCenter/postList?id=75276539",
+  "baike_url": "https://baike.mihoyo.com/ys/obc/channel/map/189/25",
+  "weibo_url": "https://weibo.com/u/6593199887",
+  "headless": false,
+  "wait_seconds": 3,
+  "timeout": 120000,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+  "output_dirs": {
+    "html": "data/html",
+    "images": "data/images",
+    "data": "data/results"
+  },
+  "filenames": {
+    "user_html": "user_posts.html",
+    "baike_html": "character_list.html",
+    "image_urls": "image_urls.txt",
+    "posts_data": "posts.txt"
+  },
+  "browser_args": [
+    "--no-sandbox",
+    "--disable-gpu",
+    "--disable-dev-shm-usage"
+  ],
+  "scroll_settings": {
+    "delay": 2.0,
+    "max_scroll_attempts": 500
+  },
+  "retry_settings": {
+    "max_attempts": 3,
+    "delay": 2.0
+  },
+  "incremental_settings": {
+    "enabled": true,
+    "stop_on_existing": true,
+    "merge_data": true
+  },
+  "backup_settings": {
+    "enabled": true,
+    "max_backups": 10,
+    "backup_dir": "data/backups"
+  },
+  "weibo_settings": {
+    "use_firefox_cookies": true
+  },
+  "miyoushe_settings": {
+    "use_firefox_cookies": true
+  }
+}

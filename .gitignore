@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual Environment
+venv/
+.env/
+.env.local
+.venv/
+
+# Output Directories
+data/
+html_output/
+image_urls/
+
+# HAR files (may contain cookies)
+har/*/
+
+# Logs
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Build
+build/
+dist/
+*.spec
+
+# Test
+.test/
+.coverage
+htmlcov/
+
+# Config (optional - uncomment if contains sensitive data)
+# config.json
