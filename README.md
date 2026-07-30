@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
 [![Playwright](https://img.shields.io/badge/Playwright-1.40%2B-45ba4b?logo=playwright&logoColor=white)](https://playwright.dev/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-v1.0.0-green)
+![Version](https://img.shields.io/badge/version-RV1.0.0-green)
 
 **[快速开始](#快速开始)** ·
 **[功能列表](#功能列表)** ·
@@ -240,4 +240,4 @@ python -m unittest tests.test_extractors -v
 
 ---
 
-**v1.0.0** · Licensed under [MIT](LICENSE) · Maintained by LingLan
+**RV1.0.0** · Licensed under [MIT](LICENSE) · Maintained by LingLan
