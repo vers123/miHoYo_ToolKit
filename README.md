@@ -161,6 +161,8 @@ python main.py           # 启动 CLI 命令行（默认）
 | 星穹铁道 | Star-Rail-Neue | 星穹铁道导航项标题字体 |
 | 星穹铁道 | Xianzhou-Seal | 装饰文字 |
 
+> 字体来源：[HoYo-Glyphs](https://github.com/SpeedyOrc-C/HoYo-Glyphs) · 仅供非商业用途使用，字体文件未做修改。完整许可见 `resources/font/LICENSE`。
+
 ### 配置说明
 
 配置文件：`config.json`
@@ -299,6 +301,8 @@ All three games use the unified `content_v2_user` API architecture.
 ### GUI Mode
 
 Launch the PySide6-based GUI with `python main.py --gui`. Features include left sidebar navigation, game-specific fonts (Teyvat-Black / ZZZ-System / Star-Rail-Neue), light theme with game accent colors, global bottom log panel, async task execution via QThread, and task cancellation support.
+
+> Game fonts are from [HoYo-Glyphs](https://github.com/SpeedyOrc-C/HoYo-Glyphs). For non-commercial use only. Font files are unmodified. See `resources/font/LICENSE` for full license.
 
 ### Configuration
 

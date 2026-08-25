@@ -197,6 +197,12 @@ class SystemPage(QWidget):
             lines.append(f"[INFO] PySide6: {PySide6.__version__}")
         except ImportError:
             lines.append(f"[WARN] PySide6: 未安装")
+        lines.append("")
+        lines.append("--- 字体来源 ---")
+        lines.append("游戏字体来自 HoYo-Glyphs 项目:")
+        lines.append("  https://github.com/SpeedyOrc-C/HoYo-Glyphs")
+        lines.append("仅供非商业用途使用，字体文件未做修改。")
+        lines.append("完整许可详见 resources/font/LICENSE")
         main_window = self.window()
         if hasattr(main_window, 'log_viewer'):
             for line in lines:
