@@ -6,6 +6,7 @@
   "wait_seconds": 3,
   "timeout": 120000,
   "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+  "project_root": "D:\\LingLan\\material\\github\\Vers123\\mihoyo\\mihoyo-tool-kit",
   "output_dirs": {
     "html": "data/html",
     "images": "data/images",
@@ -15,7 +16,72 @@
     "user_html": "user_posts.html",
     "baike_html": "character_list.html",
     "image_urls": "image_urls.txt",
-    "posts_data": "posts.txt"
+    "posts_data": "posts.txt",
+    "weibo_html": "weibo_posts.html",
+    "weibo_data": "weibo.txt"
+  },
+  "news_sites": {
+    "genshin": {
+      "url": "https://ys.mihoyo.com/main/news",
+      "html_filename": "news_genshin.html",
+      "data_filename": "news_genshin.txt",
+      "scraper_name": "news_genshin",
+      "detail_url_pattern": "/main/news/detail/{iInfoId}",
+      "api_base_url": "https://act-api-takumi-static.mihoyo.com/content_v2_user/app/16471662a82d418a/getContentList",
+      "api_chan_id": "719",
+      "api_page_param": "iPage",
+      "api_page_size_param": "iPageSize",
+      "api_page_size": 5,
+      "api_lang_param": "sLangKey",
+      "api_lang_value": "zh-cn",
+      "fields": ["iInfoId", "sTitle", "dtStartTime", "sCategoryName", "sIntro", "poster_url", "url"],
+      "date_field": "dtStartTime",
+      "poster_ext_key": "720_1",
+      "total": 4637
+    },
+    "zzz": {
+      "url": "https://zzz.mihoyo.com/news",
+      "html_filename": "news_zzz.html",
+      "data_filename": "news_zzz.txt",
+      "scraper_name": "news_zzz",
+      "detail_url_pattern": "/news/{iInfoId}",
+      "api_base_url": "https://api-takumi-static.mihoyo.com/content_v2_user/app/706fd13a87294881/getContentList",
+      "api_chan_id": "273",
+      "api_page_param": "iPage",
+      "api_page_size_param": "iPageSize",
+      "api_page_size": 9,
+      "api_lang_param": "sLangKey",
+      "api_lang_value": "zh-cn",
+      "fields": ["iInfoId", "sTitle", "dtStartTime", "sCategoryName", "sIntro", "poster_url", "url"],
+      "date_field": "dtStartTime",
+      "poster_ext_key": "news-banner",
+      "total": 1554
+    },
+    "starrail": {
+      "url": "https://sr.mihoyo.com/news",
+      "html_filename": "news_starrail.html",
+      "data_filename": "news_starrail.txt",
+      "scraper_name": "news_starrail",
+      "detail_url_pattern": "/news/{iInfoId}",
+      "api_base_url": "https://act-api-takumi-static.mihoyo.com/content_v2_user/app/1963de8dc19e461c/getContentList",
+      "api_chan_id": "255",
+      "api_page_param": "iPage",
+      "api_page_size_param": "iPageSize",
+      "api_page_size": 5,
+      "api_lang_param": "sLangKey",
+      "api_lang_value": "zh-cn",
+      "fields": ["iInfoId", "sTitle", "dtStartTime", "sCategoryName", "sIntro", "poster_url", "url"],
+      "date_field": "dtStartTime",
+      "poster_ext_key": "news-poster",
+      "total": 792
+    }
+  },
+  "migration": {
+    "enabled": true,
+    "genshin_old_filenames": {
+      "html": "news_page.html",
+      "data": "news.txt"
+    }
   },
   "browser_args": [
     "--no-sandbox",

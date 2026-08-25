@@ -66,8 +66,8 @@ class ErrorHandler:
     def validate_file_exists(filepath: str) -> bool:
         import os
         if not os.path.exists(filepath):
-            logging.error(f"文件不存在: {filepath}")
-            print(f"❌ 文件不存在: {filepath}")
+            logging.warning(f"文件不存在: {filepath}")
+            print(f"[WARN] 文件不存在: {filepath}")
             return False
         return True
     

@@ -72,8 +72,72 @@ class ConfigManager:
             "wait_seconds": 3,
             "timeout": 120000,
             "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+            "project_root": self.base_dir,
             "output_dirs": asdict(OutputDirs()),
             "filenames": asdict(Filenames()),
+            "news_sites": {
+                "genshin": {
+                    "url": "https://ys.mihoyo.com/main/news",
+                    "html_filename": "news_genshin.html",
+                    "data_filename": "news_genshin.txt",
+                    "scraper_name": "news_genshin",
+                    "detail_url_pattern": "/main/news/detail/{iInfoId}",
+                    "api_base_url": "https://act-api-takumi-static.mihoyo.com/content_v2_user/app/16471662a82d418a/getContentList",
+                    "api_chan_id": "719",
+                    "api_page_param": "iPage",
+                    "api_page_size_param": "iPageSize",
+                    "api_page_size": 5,
+                    "api_lang_param": "sLangKey",
+                    "api_lang_value": "zh-cn",
+                    "fields": ["iInfoId", "sTitle", "dtStartTime", "sCategoryName", "sIntro", "poster_url", "url"],
+                    "date_field": "dtStartTime",
+                    "poster_ext_key": "720_1",
+                    "total": 4637
+                },
+                "zzz": {
+                    "url": "https://zzz.mihoyo.com/news",
+                    "html_filename": "news_zzz.html",
+                    "data_filename": "news_zzz.txt",
+                    "scraper_name": "news_zzz",
+                    "detail_url_pattern": "/news/{iInfoId}",
+                    "api_base_url": "https://api-takumi-static.mihoyo.com/content_v2_user/app/706fd13a87294881/getContentList",
+                    "api_chan_id": "273",
+                    "api_page_param": "iPage",
+                    "api_page_size_param": "iPageSize",
+                    "api_page_size": 9,
+                    "api_lang_param": "sLangKey",
+                    "api_lang_value": "zh-cn",
+                    "fields": ["iInfoId", "sTitle", "dtStartTime", "sCategoryName", "sIntro", "poster_url", "url"],
+                    "date_field": "dtStartTime",
+                    "poster_ext_key": "news-banner",
+                    "total": 1554
+                },
+                "starrail": {
+                    "url": "https://sr.mihoyo.com/news",
+                    "html_filename": "news_starrail.html",
+                    "data_filename": "news_starrail.txt",
+                    "scraper_name": "news_starrail",
+                    "detail_url_pattern": "/news/{iInfoId}",
+                    "api_base_url": "https://act-api-takumi-static.mihoyo.com/content_v2_user/app/1963de8dc19e461c/getContentList",
+                    "api_chan_id": "255",
+                    "api_page_param": "iPage",
+                    "api_page_size_param": "iPageSize",
+                    "api_page_size": 5,
+                    "api_lang_param": "sLangKey",
+                    "api_lang_value": "zh-cn",
+                    "fields": ["iInfoId", "sTitle", "dtStartTime", "sCategoryName", "sIntro", "poster_url", "url"],
+                    "date_field": "dtStartTime",
+                    "poster_ext_key": "news-poster",
+                    "total": 792
+                }
+            },
+            "migration": {
+                "enabled": True,
+                "genshin_old_filenames": {
+                    "html": "news_page.html",
+                    "data": "news.txt"
+                }
+            },
             "browser_args": ["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"],
             "scroll_settings": asdict(ScrollSettings()),
             "retry_settings": asdict(RetrySettings()),
@@ -100,7 +164,7 @@ class ConfigManager:
             except IOError as e:
                 print(f"[WARN] 读取配置文件失败，使用默认配置: {e}")
             except Exception as e:
-                print(f"[WARN] 加载配置文件时发生未知错误，使用默认配置: {e}")
+                print(f"[WARN] 加载配置文件时发生未知错误: {e}")
         else:
             print(f"[INFO] 配置文件不存在，创建默认配置: {self.config_path}")
             self.save_config()
@@ -155,6 +219,10 @@ class ConfigManager:
         except Exception as e:
             print(f"[WARN] 设置配置失败: {e}")
     
+    def get_project_root(self) -> str:
+        """获取项目根目录路径（从配置文件读取，可在 config.json 中覆盖）"""
+        return self.get("project_root", self.base_dir)
+
     def get_output_dir(self, dir_type: str) -> str:
         """获取输出目录路径"""
         dir_path = self.get(f"output_dirs.{dir_type}")
@@ -164,6 +232,29 @@ class ConfigManager:
         full_path = os.path.join(self.base_dir, dir_path)
         os.makedirs(full_path, exist_ok=True)
         return full_path
+
+    def get_news_output_dir(self, game_key: str, dir_type: str) -> str:
+        """获取新闻模块按游戏分子目录的输出路径
+
+        Args:
+            game_key: 游戏标识（genshin / zzz / starrail）
+            dir_type: 目录类型（html / data / backup）
+
+        Returns:
+            完整的目录路径（如 data/html/genshin/）
+        """
+        base_dir = self.get_output_dir(dir_type)
+        game_dir = os.path.join(base_dir, game_key)
+        os.makedirs(game_dir, exist_ok=True)
+        return game_dir
+
+    def get_news_config(self, game_key: str) -> Optional[Dict[str, Any]]:
+        """获取指定游戏的新闻配置"""
+        return self.get(f"news_sites.{game_key}")
+
+    def get_all_news_sites(self) -> Dict[str, Dict[str, Any]]:
+        """获取所有新闻站点配置"""
+        return self.get("news_sites", {})
     
     def get_filename(self, file_type: str) -> str:
         """获取文件名"""
@@ -180,6 +271,26 @@ class ConfigManager:
             "user_agent": self.get("user_agent"),
             "browser_args": self.get("browser_args", []),
             "scroll_delay": self.get("scroll_settings.delay", 2.0)
+        }
+
+    def get_news_scraper_config(self, game_key: str) -> Optional[Dict[str, Any]]:
+        """获取新闻抓取器配置（整合 news_sites + 通用配置）"""
+        site_config = self.get_news_config(game_key)
+        if not site_config:
+            return None
+
+        html_dir = self.get_news_output_dir(game_key, "html")
+
+        return {
+            **site_config,
+            "html_dir": html_dir,
+            "output_path": os.path.join(html_dir, site_config["html_filename"]),
+            "headless": self.get("headless", False),
+            "wait_seconds": self.get("wait_seconds", 3),
+            "timeout": self.get("timeout", 120000),
+            "user_agent": self.get("user_agent"),
+            "browser_args": self.get("browser_args", []),
+            "scroll_delay": self.get("scroll_settings.delay", 2.0),
         }
 
 
